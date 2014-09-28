@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<!-- Version 1.0 of Finely - Responsive Under Construction Template -->
+<!-- Copyright 2014 CosmicLabs -->
+<!-- Template availble to purchase on Themeforest -->
+<!-- http://themeforest.net/user/cosmiclabs/portfolio -->
+
+<html lang="en">
+
+<!--[if IE 9]>
+	<html class="ie9" lang="en">
+<![endif]-->
+	
+	<head>
+		<title>Matt Horton | CCRMA</title>
+		
+		<meta charset=utf-8>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/animate.css" />
+		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700%7COpen+Sans:300,400' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="images/faviconlogo.png">
+	</head>
+	
+	<body>	
+		
+		<!-- BEGIN MAIN -->
+		<div class="section-main" id="top">
+			<div class="mini-container main-mini-container">
+				<div class="title">
+					<div class="header">
+						<img src="images/logo.png" style="display:none" class="logo" alt="Matt Horton" />
+						<h1>matt horton</h1>
+					</div>
+                    <br>
+					<div class="content">
+						<div class="navigation">
+							<a class="nav-button" href="http://mattahorton.com">Go to my website</a>
+						</div>
+						<div class="social-nav">
+							<!-- Social Icons -->
+							<a href="mailto:mattah@ccrma.stanford.edu" target="_blank" class="social-button"><i class="fa fa-fw fa-envelope"></i></a>
+							<!-- End Social Icons -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="videoMuteButton" onclick="$('#bgndVideo').toggleVolume(); $('.videoButton.notmuted').toggleClass('mute');">
+				<div class="videoButton notmuted"><i class="fa fa-volume-up"></i></div>
+				<div class="videoButton muted"><i class="fa fa-volume-off"></i></div>
+			</div>					
+		</div>		
+		<!-- END MAIN -->
+		
+		<!-- Background Video container -->
+		<a id="bgndVideo" class="player"></a>
+		
+		<!-- Loading Page Overlay -->
+		<div class="page-loading">
+			<noscript><div class="noscript-error"><i class="fa fa-info-circle"></i>Enable JavaScript to see this site working properly.</div></noscript>
+			<div class="square-loader-wrap">
+				<div class="square-loader"></div>
+				<div class="square-loader"></div>
+				<div class="square-loader"></div>
+				<div class="square-loader"></div>
+			</div>
+		</div>
+
+		<!-- JAVASCRIPT -->
+		<script type="text/javascript" src="js/jquery.js"></script>
+			
+			<!-- All set up / customisation variables for slideshow and video background etc. in custom.js file -->
+			<script type="text/javascript" src="js/custom.js"></script>
+		
+		<script type="text/javascript" src="js/finely.js"></script>
+		<script type="text/javascript" src="js/countdown.js"></script>
+		<script type="text/javascript" src="js/emailsubscribe.js"></script>
+		<script type="text/javascript" src="js/contact.js"></script>
+		<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+		<script type="text/javascript" src="js/jquery.mb.YTPlayer.js"></script>
+		<script type="text/javascript" src="js/placeholders.min.js"></script>
+		
+		
+		<script type="text/javascript">
+								
+			// No need to edit here - all settings in custom.js file
+					
+			$(document).ready(function(){
+				
+				$('.page-loading').html('');
+				
+				if(videoBackground == 'on') {			
+				    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+						$(".player").hide();
+						$.backstretch(slideshowBackgroundURLS, {
+			    	    	fade: slideshowFade,
+			    	   		duration: slideshowDuration
+			    		});
+			    		$('.backstretch img').load(function(){
+							if(preloader == 'on') {
+   								$('.page-loading').delay(1500).fadeOut(1000, function() { animateInStart(); });
+							}
+							else {
+								animateInStart();
+							}
+						});
+					}
+					else {
+						$(".player").mb_YTPlayer({
+							videoURL: videoBackgroundURL,
+							containment: 'body',
+							autoPlay: true,
+							mute: videoMuted,
+							startAt:0,
+							opacity:1
+						});
+						$('#bgndVideo').on("YTPStart",function(){
+							if(preloader == 'on') {
+   								$('.page-loading').delay(1500).fadeOut(1000, function() { animateInStart(); });
+							}
+							else {
+								animateInStart();
+							}
+						});
+						
+						if(videoMuted == false) {
+							$('.videoMuteButton').show();
+						}
+					}
+				}
+				else {
+					$.backstretch(slideshowBackgroundURLS, {
+			    	    fade: slideshowFade,
+			    	    duration: slideshowDuration
+			    	});
+			    	$('.backstretch img').load(function(){
+						if(preloader == 'on') {
+   								$('.page-loading').delay(1500).fadeOut(1000, function() { animateInStart(); });
+							}
+							else {
+								animateInStart();
+							}
+					});
+				}
+				
+				$("#countdown").countdown({ date: countdownDate	});
+				
+				if ($(window).width() < 599) {
+					$('.about-container .about-box-spacer').css('height', '1px');
+				}
+				else {
+					var ieAboutSpacerHeight = $('.about-box-text').height() + 'px';
+					$('.about-container .about-box-spacer').css('height', ieAboutSpacerHeight);
+				}
+				
+				if (preloaderGIF == 'on') {
+					$('.page-loading').html('<noscript><div class="noscript-error"><i class="fa fa-info-circle"></i>Enable JavaScript to see this site working properly.</div></noscript><div class="gif-preloader"></div>');
+				}
+				else {
+					$('.page-loading').html('<noscript><div class="noscript-error"><i class="fa fa-info-circle"></i>Enable JavaScript to see this site working properly.</div></noscript><div class="square-loader-wrap"><div class="square-loader"></div><div class="square-loader"></div><div class="square-loader"></div><div class="square-loader"></div></div>');
+				}
+			});
+		</script>
+	</body>
+</html>
